@@ -30,3 +30,11 @@ services:
       - ./postgres-data:/var/lib/postgresql/data
     networks:
       - internal
+
+  adminer:
+    image: adminer
+    restart: unless-stopped
+    ports:
+      - "8081:8080"
+    networks:
+      - internal
