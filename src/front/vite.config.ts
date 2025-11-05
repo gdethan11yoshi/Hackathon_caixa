@@ -1,5 +1,6 @@
 import {defineConfig} from 'vite';
 import { resolve } from 'path'
+import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig({
     server: {
@@ -17,5 +18,18 @@ export default defineConfig({
                 assetFileNames: 'assets/[name].[hash][extname]',
             },
         },
-    }
+    },
+    plugins: [
+        VitePWA({
+            registerType: "autoUpdate",
+            manifest: {
+                name: 'CampusNav',
+                short_name: 'CamNav',
+                start_url: '/',
+                display: 'standalone',
+                background_color: '#ffffff',
+                theme_color: '#0000FF'
+            }
+        })
+    ]
 });
