@@ -1,10 +1,179 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <title>LocAR.js - Hello World</title>
-    <script type='module' src='js/main.js'></script>
-</head>
-<body>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <title>Campus Map Epic Navegation APPs</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
+    />
+    <script type="module" src="js/main.js"></script>
+    <style>
+      .sidebar-offcanvas {
+        width: 300px;
+      }
+      .map-container {
+        background-color: #e9ecef;
+        height: 400px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .location-item {
+        padding: 10px 15px;
+        margin-bottom: 8px;
+        background: white;
+        border-radius: 6px;
+        border-left: 4px solid #007bff;
+        cursor: pointer;
+      }
+      .location-item:hover {
+        background-color: #f1f3f5;
+      }
+      .header-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem;
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #dee2e6;
+      }
+      .search-container {
+        flex: 1;
+        max-width: 400px;
+        margin-left: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Cabecera con botón menú y búsqueda -->
+    <div class="header-container">
+      <!-- Botón menú -->
+      <button
+        class="btn btn-primary"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#sidebar"
+      >
+        <i class="bi bi-list"></i> Menú
+      </button>
+
+      <!-- Barra de búsqueda -->
+      <div class="search-container">
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Buscar aulas, edificios..."
+            aria-label="Buscar"
+          />
+          <button class="btn btn-outline-secondary" type="button">
+            <i class="bi bi-search"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container-fluid">
+      <div class="main-content p-4">
+        <h2>Mapa del Campus</h2>
+        <div class="map-container">
+          <div class="text-center">
+            <h4 class="text-muted">Mapa del Campus UC3M</h4>
+            <p class="text-muted">Aquí iría el mapa interactivo</p>
+          </div>
+        </div>
+        <div class="section-title">Puntos de interés</div>
+        <div class="location-item">
+          <strong>Biblioteca</strong>
+          <div class="text-muted small">
+            Edificio principal de la biblioteca
+          </div>
+        </div>
+        <div class="location-item">
+          <strong>Edificio 1</strong>
+        </div>
+        <div class="location-item">
+          <strong>Edificio 2</strong>
+        </div>
+        <div class="location-item">
+          <strong>Edificio 3</strong>
+        </div>
+        <div class="location-item">
+          <strong>Edificio 4</strong>
+        </div>
+        <div class="location-item">
+          <strong>Edificio 5</strong>
+        </div>
+        <div class="location-item">
+          <strong>Edificio 6</strong>
+        </div>
+        <div class="location-item">
+          <strong>Edificio 7</strong>
+        </div>
+        <div class="location-item">
+          <strong>Sede GUL</strong>
+        </div>
+      </div>
+      <div class="section-title">Recientes</div>
+      <div class="location-item">
+        <strong>Cafetería</strong>
+      </div>
+    </div>
+
+    <!-- Sidebar Offcanvas -->
+    <div
+      class="offcanvas offcanvas-start sidebar-offcanvas"
+      tabindex="-1"
+      id="sidebar"
+    >
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Campus Map</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+        ></button>
+      </div>
+      <div class="offcanvas-body">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h4 class="mb-0">Campus Map</h4>
+          <span class="badge bg-secondary">eeeeh idk man</span>
+        </div>
+        <div class="mb-4">
+          <h6 class="section-title">UC3M Site</h6>
+          <div class="location-item">
+            <strong>Eduroam is evil</strong>
+            <div class="text-muted small">
+              <a href="https://www.uc3m.es/Inicio">Website</a>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h6 class="section-title">Live View</h6>
+          <div class="location-item">
+            <strong>Live View</strong>
+            <div class="badge bg-warning text-dark">En desarrollo</div>
+            <div class="text-muted small">Vista en tiempo real</div>
+          </div>
+        </div>
+        <div>
+          <h6 class="section-title">Cómo se enumeran las aulas</h6>
+          <p class="text-muted small">
+            Las aulas son enumeradas en función de su edificio y planta, por
+            ejemplo el aula 1.2.03 se encuentra en el edificio 1, planta 2, aula
+            03.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>
