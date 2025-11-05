@@ -1,11 +1,15 @@
-import * as THREE from "three";
-import * as LocAR from "locar";
+import * as THREE from 'three';
+import * as LocAR from 'locar';
 
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.001, 100);
+const camera = new THREE.PerspectiveCamera(80, window.innerWidth / window.innerHeight, 0.001, 1000);
+
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+
+const locar = new LocAR.LocationBased(scene, camera);
 
 window.addEventListener("resize", e => {
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -13,10 +17,8 @@ window.addEventListener("resize", e => {
     camera.updateProjectionMatrix();
     console.log(e);
 });
-const box = new THREE.BoxGeometry(2,2,2);
-const cube = new THREE.Mesh(box, new THREE.MeshBasicMaterial({ color: 0xff0000 }));
 
-const locar = new LocAR.LocationBased(scene, camera);
+
 const cam = new LocAR.Webcam({
     video: {
         facingMode: "environment"
@@ -31,41 +33,69 @@ cam.on("webcamerror", error => {
     alert(`Webcam error: code ${error.code} message ${error.message}`);
 });
 
-locar.fakeGps(-0.72, 51.05);
-locar.add(cube, -0.72, 51.0501);
+let firstLocation = true;
 
-const rotationStep = THREE.MathUtils.degToRad(2);
+const deviceOrientationControls = new LocAR.DeviceOrientationControls(camera);
 
-let mousedown = false, lastX =0;
-
-window.addEventListener("mousedown", e=> {
-    mousedown = true;
-    console.log(e);
+deviceOrientationControls.on("deviceorientationgranted", ev => {
+    ev.target.connect();
 });
 
-window.addEventListener("mouseup", e=> {
-    mousedown = false;
-    console.log(e);
+deviceOrientationControls.on("deviceorientationerror", error => {
+    alert(`Device orientation error: code ${error.code} message ${error.message}`);
 });
 
-window.addEventListener("mousemove", e=> {
-    if(!mousedown) return;
-    if(e.clientX < lastX) {
-        camera.rotation.y -= rotationStep;
-        if(camera.rotation.y < 0) {
-            camera.rotation.y += 2 * Math.PI;
+deviceOrientationControls.init();
+
+locar.on("gpserror", error => {
+    alert(`GPS error: ${error.code}`);
+});
+
+locar.on("gpsupdate", ev => {
+    if(firstLocation) {
+
+        const boxProps = [{
+            latDis: 0.0005,
+            lonDis: 0,
+            colour: 0xff0000
+        }, {
+            latDis: -0.0005,
+            lonDis: 0,
+            colour: 0xffff00
+        }, {
+            latDis: 0,
+            lonDis: -0.0005,
+            colour: 0x00ffff
+        }, {
+            latDis: 0,
+            lonDis: 0.0005,
+            colour: 0x00ff00
+        }];
+
+        const geom = new THREE.BoxGeometry(10,10,10);
+
+        for(const boxProp of boxProps) {
+            const mesh = new THREE.Mesh(
+                geom,
+                new THREE.MeshBasicMaterial({color: boxProp.colour})
+            );
+
+            locar.add(
+                mesh,
+                ev.position.coords.longitude + boxProp.lonDis,
+                ev.position.coords.latitude + boxProp.latDis
+            );
         }
-    } else if (e.clientX > lastX) {
-        camera.rotation.y += rotationStep;
-        if(camera.rotation.y > 2 * Math.PI) {
-            camera.rotation.y -= 2 * Math.PI;
-        }
+
+        firstLocation = false;
     }
-    lastX = e.clientX;
 });
+
+locar.startGps();
 
 renderer.setAnimationLoop(animate);
 
 function animate() {
+    deviceOrientationControls.update();
     renderer.render(scene, camera);
 }

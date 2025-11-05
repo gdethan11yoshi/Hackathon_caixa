@@ -1,5 +1,5 @@
-*:80 {
-  root * /srv/front/dist
-  #tls /etc/caddy/tls/server.crt /etc/caddy/tls/server.key
-  file_server
+http://localhost:80, http://192.168.1.138:80 {
+    root * /srv/front/dist
+    try_files {path} /index.html
+    file_server
 }
