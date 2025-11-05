@@ -1,5 +1,5 @@
-localhost {
+*:80 {
   root * /srv/front/dist
-  tls /etc/caddy/tls/server.crt /etc/caddy/tls/server.key
+  #tls /etc/caddy/tls/server.crt /etc/caddy/tls/server.key
   file_server
 }

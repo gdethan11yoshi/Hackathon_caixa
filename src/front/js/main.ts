@@ -1,25 +1,71 @@
-import * as THREE from 'three';
+import * as THREE from "three";
+import * as LocAR from "locar";
 
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-
+const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.001, 100);
 const renderer = new THREE.WebGLRenderer();
-renderer.setSize( window.innerWidth, window.innerHeight );
-renderer.setAnimationLoop( animate );
-document.body.appendChild( renderer.domElement );
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
 
-const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-const cube = new THREE.Mesh( geometry, material );
-scene.add( cube );
+window.addEventListener("resize", e => {
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    console.log(e);
+});
+const box = new THREE.BoxGeometry(2,2,2);
+const cube = new THREE.Mesh(box, new THREE.MeshBasicMaterial({ color: 0xff0000 }));
 
-camera.position.z = 5;
+const locar = new LocAR.LocationBased(scene, camera);
+const cam = new LocAR.Webcam({
+    video: {
+        facingMode: "environment"
+    }
+});
+
+cam.on("webcamstarted", ev => {
+    scene.background = ev.texture;
+});
+
+cam.on("webcamerror", error => {
+    alert(`Webcam error: code ${error.code} message ${error.message}`);
+});
+
+locar.fakeGps(-0.72, 51.05);
+locar.add(cube, -0.72, 51.0501);
+
+const rotationStep = THREE.MathUtils.degToRad(2);
+
+let mousedown = false, lastX =0;
+
+window.addEventListener("mousedown", e=> {
+    mousedown = true;
+    console.log(e);
+});
+
+window.addEventListener("mouseup", e=> {
+    mousedown = false;
+    console.log(e);
+});
+
+window.addEventListener("mousemove", e=> {
+    if(!mousedown) return;
+    if(e.clientX < lastX) {
+        camera.rotation.y -= rotationStep;
+        if(camera.rotation.y < 0) {
+            camera.rotation.y += 2 * Math.PI;
+        }
+    } else if (e.clientX > lastX) {
+        camera.rotation.y += rotationStep;
+        if(camera.rotation.y > 2 * Math.PI) {
+            camera.rotation.y -= 2 * Math.PI;
+        }
+    }
+    lastX = e.clientX;
+});
+
+renderer.setAnimationLoop(animate);
 
 function animate() {
-
-  cube.rotation.x += 0.01;
-  cube.rotation.y += 0.01;
-
-  renderer.render( scene, camera );
-
+    renderer.render(scene, camera);
 }
