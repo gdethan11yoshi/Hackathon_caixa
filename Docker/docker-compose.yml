@@ -14,7 +14,7 @@ services:
       - "443:443/udp"
     volumes:
       - ./conf:/etc/caddy
-      - ./src:/srv
+      - ../src:/srv
     networks:
       - internal
 
@@ -27,7 +27,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ./postgres-data:/var/lib/postgresql/data
+      - ./postgres-data:/var/lib/postgresql
     networks:
       - internal
 
