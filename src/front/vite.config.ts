@@ -10,7 +10,6 @@ export default defineConfig({
         rollupOptions: {
             input: {
                 main: resolve(__dirname, 'index.html'),
-                admin: resolve(__dirname, 'liveView/index.html'),
             },
             output: {
                 entryFileNames: 'assets/[name].[hash].js',
@@ -27,8 +26,8 @@ export default defineConfig({
                 short_name: 'CamNav',
                 start_url: '/',
                 display: 'standalone',
-                background_color: '#ffffff',
-                theme_color: '#0000FF',
+                background_color: '#000501',
+                theme_color: '#000501',
                 "icons": [
                     {
                         "src": "windows11/SmallTile.scale-100.png",

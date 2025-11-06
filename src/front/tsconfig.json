@@ -23,6 +23,6 @@
     "noUncheckedSideEffectImports": true
   },
 
-  "include": ["js", "liveView/js"],
+  "include": ["js"],
   "exclude": ["node_modules", "dist", "types"]
 }

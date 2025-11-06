@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "cloudflared tunnel --url http://localhost:5173"
+    "preview": "cloudflared tunnel --url http://localhost:8080"
   },
   "devDependencies": {
     "@types/node": "^24.10.0",
