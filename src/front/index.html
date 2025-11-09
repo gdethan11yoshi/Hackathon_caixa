@@ -47,18 +47,73 @@
 <main class="container-fluid" style="max-width: 100%; padding: 0;">
     <div id="homeSection" class="section-container active">
         <h1>Home</h1>
+        <div class="search-container">
+            <div class="search-preview">
+                <div class="row mb-3" id="search_bar">
+                    <div class="col-12">
+                        <div class="input-group">
+                            <span class="input-group-text bg-white border-end-0">
+                                <i class="bi bi-search text-muted"></i>
+                            </span>
+                            <input type="text" class="form-control border-start-0" placeholder="Buscar lugares, edificios...">
+                            <button class="btn btn-primary" type="button">Buscar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         <p>Welcome to the Home section.</p>
         <p>Some placeholder content to allow scrolling...</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse …</p>
-    </div>
+        <p>How to locate a class</p>
+        <p>To locate a class you have to see the first number of the direction youre aiming to go,
+          it corresponds with the building youre going to. For example if you were to go to the room
+          7.02.05, you have to go to Building 7 floor 2 room 5. This concept applies to all directions
+        </p>
+        <div class="row" id="massive-grid">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Points of Interest</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Building 1</li>
+                            <li class="list-group-item">Building 2</li>
+                            <li class="list-group-item">Building 3</li>
+                            <li class="list-group-item">Building 4</li>
+                            <li class="list-group-item">Building 5</li>
+                            <li class="list-group-item">Building 6</li>
+                            <li class="list-group-item">Building 7</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Recents</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Placeholder value</li>
+                            <li class="list-group-item">Placeholder value</li>
+                            <li class="list-group-item">Placeholder value</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     <div id="liveViewSection" class="section-container" style="padding: 0">
     </div>
 
     <div id="mapSection" class="section-container">
         <h1>Map</h1>
-        <p>Map view content goes here.</p>
-        <p>Placeholder text to allow for scrolling...</p>
+        <p>Here is a full view of the map</p>
+        <div id="map_container">
+                  <img src="public/plano-leganes.jpg" alt="campus map" id="map">
+        </div>
+        <p>The campus is composed of seven main buildings named from 1 to 7</p>
+        <p>You can find more information about them in the Home section</p>
         <p>Lorem ipsum dolor sit amet …</p>
     </div>
 

@@ -1,92 +1,163 @@
 :root {
-    /* CSS HEX */
-    --black: #000501ff; /*Fondo oscuro*/
-    --dark-green: #09342Cff; /*Segundario sobre claro*/
-    --turquoise: #48e5c2ff; /*Segundario sobre oscuro*/
-    --white-smoke: #f5f3f5ff; /*Texto (Intentar estar siempre sobre oscuro)*/
-    --light-cyan: #e0fbfcff; /*Fondo claro*/
+  /* CSS HEX */
+  --black: #000501ff; /*Fondo oscuro*/
+  --dark-green: #09342cff; /*Segundario sobre claro*/
+  --turquoise: #48e5c2ff; /*Segundario sobre oscuro*/
+  --white-smoke: #f5f3f5ff; /*Texto (Intentar estar siempre sobre oscuro)*/
+  --light-cyan: #e0fbfcff; /*Fondo claro*/
 }
 
 body {
-    background-color: var(--black);
-    color: var(--white-smoke) !important;
+  background-color: var(--black);
+  color: var(--white-smoke) !important;
 }
 
 /*** CLASES GLOBALES ***/
 .no-bot-padd {
-    padding-bottom: 0;
+  padding-bottom: 0;
 }
 .bot-padd {
-    padding-bottom: 60px;
+  padding-bottom: 60px;
 }
 
 .darkbg-lightfr {
-    background-color: var(--black) !important;
-    color: var(--turquoise) !important;
+  background-color: var(--black) !important;
+  color: var(--turquoise) !important;
 }
 .lightbg-darkfr {
-    background-color: var(--light-cyan) !important;
-    color: var(--dark-green) !important;
+  background-color: var(--light-cyan) !important;
+  color: var(--dark-green) !important;
 }
 .material-symbols-outlined {
-    color: var(--turquoise) !important;
+  color: var(--turquoise) !important;
 }
 .darkbg-lightfr .material-symbols-outlined {
-    color: var(--turquoise) !important;
+  color: var(--turquoise) !important;
 }
 .lightbg-darkfr .material-symbols-outlined {
-    color: var(--dark-green) !important;
+  color: var(--dark-green) !important;
 }
-
 
 /* Bottom nav fixed at bottom */
 .bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 90%;
-    z-index: 1030; /* above content */
-    margin: 0 5% 20px 5%;
-    border-radius: 10px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 90%;
+  z-index: 1030; /* above content */
+  margin: 0 5% 20px 5%;
+  border-radius: 10px;
 }
 
 /* Top floating menu for Live View */
 .top-menu {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 80%;
-    margin: 20px 10% 0 10%;
-    border-radius: 10px;
-    z-index: 1040;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 80%;
+  margin: 20px 10% 0 10%;
+  border-radius: 10px;
+  z-index: 1040;
 }
 .container-fluid {
-    align-content: center;
-    align-items: center;
+  align-content: center;
+  align-items: center;
 }
 .top-menu-elems {
-    align-content: center;
-    align-items: center;
-    margin: auto 0;
-    display: flex;
-    flex-direction: row;
+  align-content: center;
+  align-items: center;
+  margin: auto 0;
+  display: flex;
+  flex-direction: row;
 }
 #directionId {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 #floorId {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 /* Container spacing when top menu is visible: push content down */
 .with-top-menu {
-    padding-top: 56px; /* height of top menu */
+  padding-top: 56px; /* height of top menu */
 }
 /* Section containers hidden by default */
 .section-container {
-    display: none;
-    padding: 1rem;
+  display: none;
+  padding: 1rem;
 }
 .section-container.active {
-    display: block;
+  display: block;
+}
+
+#poi {
+  align-items: left;
+  height: 250px;
+  width: auto;
+  background-color: #48e5c2ff;
+}
+#recents {
+  align-items: right;
+  height: 250px;
+  width: auto;
+  background-color: #48e5c2ff;
+}
+#map {
+  align-content: center;
+  height: 500px;
+  width: 500px;
+}
+#map_container {
+  align-items: center;
+  display: flex;
+  width: 500px;
+  align-self: center;
+}
+#massive-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+}
+#search_bar {
+  display: flex;
+  align-self: center;
+  max-width: max-content;
+}
+.card {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+  margin-bottom: 20px;
+}
+.card:hover {
+  transform: translateY(-5px);
+}
+.list-group-item {
+  border: none;
+  padding: 10px 15px;
+}
+.list-group-item:hover {
+  background-color: #f8f9fa;
+}
+.card-header {
+  background-color: #0d6efd;
+  color: white;
+  font-weight: bold;
+}
+.option-title {
+  margin-top: 30px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #0d6efd;
+}
+.search-container {
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.search-preview {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 10px;
 }
