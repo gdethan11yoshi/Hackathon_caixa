@@ -1,334 +1,256 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta
-            name="description"
-            content="
-    Campus navigation app, with support to live view in real live to find the respective
-    buildings from the campus.
-    "
-        />
-        <meta name="keywords" content="uc3m campus navigation" />
-        <title>CampusNav</title>
+<head>
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<meta name="description"
+	      content="Campus navigation app, with support to live view in real
+	               live to find the respective buildings from the campus."/>
+	<meta name="keywords" content="uc3m campus navigation"/>
+	<title>CampusNav</title>
 
-        <link rel="canonical" href="https://example.com/" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="referrer" content="no-referrer-when-downgrade" />
+	<link rel="canonical" href="https://example.com/"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta name="format-detection" content="telephone=no"/>
+	<meta name="referrer" content="no-referrer-when-downgrade"/>
 
-        <script type="module" src="js/main.js"></script>
-        <link rel="stylesheet" href="styles/style.css" />
+	<script type="module" src="js/main.js"></script>
+	<link rel="stylesheet" href="styles/style.css"/>
 
-        <!-- BOOTSTRAP -->
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-            crossorigin="anonymous"
-        />
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-            crossorigin="anonymous"
-        ></script>
-        <!-- Google Icons -->
-        <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
-        />
-    </head>
+	<!-- BOOTSTRAP -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous"/>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+	<!-- Google Icons -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"/>
+</head>
 
-    <body>
-        <!-- Top floating menu (only for Live View) -->
-        <nav
-            id="topMenu"
-            class="navbar navbar-dark bg-dark top-menu darkbg-lightfr"
-            style="display: none"
-        >
-            <div class="container-fluid">
-                <div class="top-menu-elems">
-                    <span class="material-symbols-outlined">stairs</span>
-                    <div id="floorId">2</div>
-                </div>
-                <div class="top-menu-elems">
-                    <div id="directionId">NNR</div>
-                    <span class="material-symbols-outlined">explore</span>
-                </div>
-            </div>
-        </nav>
+<body>
+<!-- Top floating menu (only for Live View) -->
+<nav id="topMenu"
+     class="navbar navbar-dark bg-dark top-menu darkbg-lightfr"
+		 style="display: none">
+	<div class="container-fluid">
+		<div class="top-menu-elems">
+			<span class="material-symbols-outlined">stairs</span>
+			<div id="floorId">2</div>
+		</div>
+		<div class="top-menu-elems">
+			<div id="directionId">NNR</div>
+			<span class="material-symbols-outlined">explore</span>
+		</div>
+	</div>
+</nav>
 
-        <!-- Main content sections -->
-        <main class="container-fluid" style="max-width: 100%; padding: 0">
-            <div id="homeSection" class="section-container active">
-                <h1>Home</h1>
-                <div class="search-container">
-                    <div id="search_bar">
-                        <label
-                            style="
-                                display: flex;
-                                flex-direction: row;
-                                align-content: center;
-                                align-items: center;
-                            "
-                        >
-                            <span class="material-symbols-outlined"
-                                >assistant_navigation</span
-                            >
-                            <input
-                                type="text"
-                                class="form-control border-start-0"
-                                placeholder="Lugares"
-                                style="outline: none"
-                            />
-                        </label>
-                        <button
-                            class="btn btn-primary lightbg-darkfr"
-                            type="button"
-                            style="
-                                border: none;
-                                display: flex;
-                                align-content: center;
-                                align-items: center;
-                            "
-                        >
-                            <span class="material-symbols-outlined"
-                                >search</span
-                            >
-                        </button>
-                    </div>
-                    <div id="home-text">
-                        <p>Welcome to the Home section.</p>
-                        <p>Some placeholder content to allow scrolling...</p>
-                        <p>How to locate a class</p>
-                        <p>
-                            To locate a class you have to see the first number
-                            of the direction you're aiming to go, it corresponds
-                            with the building you're going to. For example if
-                            you were to go to the room 7.02.05, you have to go
-                            to Building 7 floor 2 room 5. This concept applies
-                            to all directions
-                        </p>
-                    </div>
-                    <div class="row" id="massive-grid">
-                        <div class="card">
-                            <div class="card-header">
-                                <h5 class="card-title mb-0">
-                                    Points of Interest
-                                </h5>
-                            </div>
-                            <div class="card-body">
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">
-                                        <span class="material-symbols-outlined"
-                                            >chevron_right</span
-                                        >Building 1
-                                    </li>
-                                    <li class="list-group-item">
-                                        <span class="material-symbols-outlined"
-                                            >chevron_right</span
-                                        >Building 2
-                                    </li>
-                                    <li class="list-group-item">
-                                        <span class="material-symbols-outlined"
-                                            >chevron_right</span
-                                        >Building 3
-                                    </li>
-                                    <li class="list-group-item">
-                                        <span class="material-symbols-outlined"
-                                            >chevron_right</span
-                                        >Building 4
-                                    </li>
-                                    <li class="list-group-item">
-                                        <span class="material-symbols-outlined"
-                                            >chevron_right</span
-                                        >Building 5
-                                    </li>
-                                    <li class="list-group-item">
-                                        <span class="material-symbols-outlined"
-                                            >chevron_right</span
-                                        >Building 6
-                                    </li>
-                                    <li class="list-group-item">
-                                        <span class="material-symbols-outlined"
-                                            >chevron_right</span
-                                        >Building 7
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header">
-                                <h5 class="card-title mb-0">Recents</h5>
-                            </div>
-                            <div class="card-body">
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">
-                                        <span class="material-symbols-outlined"
-                                            >chevron_right</span
-                                        >Placeholder value
-                                    </li>
-                                    <li class="list-group-item">
-                                        <span class="material-symbols-outlined"
-                                            >chevron_right</span
-                                        >Placeholder value
-                                    </li>
-                                    <li class="list-group-item">
-                                        <span class="material-symbols-outlined"
-                                            >chevron_right</span
-                                        >Placeholder value
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="about-buildigns">
-                        <h4>What is done in each building?</h4>
-                        <p>
-                            Each building has its own purpose and its own usual
-                            places, here we will briefly explain in general what
-                            you can find in each and every building of the
-                            campus
-                        </p>
-                        <p>Building 1: </p>
-                        <p>Building 2: </p>
-                        <p>Building 3: </p>
-                        <p>Building 4: </p>
-                        <p>Building 5: </p>
-                        <p>Building 6: </p>
-                        <p>Building 7: </p>
-                    </div>
-                </div>
-            </div>
+<!-- Main content sections -->
+<main class="container-fluid" style="max-width: 100%; padding: 0">
+	<div id="homeSection" class="section-container active">
+		<h1>Home</h1>
+		<div class="search-container">
+			<div id="search_bar">
+				<label style="display: flex;
+											flex-direction: row;
+											align-content: center;
+											align-items: center;">
+					<span class="material-symbols-outlined">assistant_navigation</span>
+					<input type="text"
+								 class="form-control border-start-0"
+								 placeholder="Lugares"
+								 style="outline: none"/>
+				</label>
+				<button class="btn btn-primary lightbg-darkfr"
+								type="button"
+								style="border: none;
+								       display: flex;
+								       align-content: center;
+								       align-items: center;">
+					<span class="material-symbols-outlined">search</span>
+				</button>
+			</div>
+			<div id="home-text">
+				<p>Welcome to the Home section.</p>
+				<p>Some placeholder content to allow scrolling...</p>
+				<p>How to locate a class</p>
+				<p>
+					To locate a class you have to see the first number
+					of the direction you're aiming to go, it corresponds
+					with the building you're going to. For example if
+					you were to go to the room 7.02.05, you have to go
+					to Building 7 floor 2 room 5. This concept applies
+					to all directions
+				</p>
+			</div>
+			<div class="row" id="massive-grid">
+				<div class="card">
+					<div class="card-header">
+						<h5 class="card-title mb-0">
+							Points of Interest
+						</h5>
+					</div>
+					<div class="card-body">
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item">
+                <span class="material-symbols-outlined">chevron_right</span>
+								Building 1
+							</li>
+							<li class="list-group-item">
+                <span class="material-symbols-outlined">chevron_right</span>
+								Building 2
+							</li>
+							<li class="list-group-item">
+                <span class="material-symbols-outlined">chevron_right</span>
+								Building 3
+							</li>
+							<li class="list-group-item">
+                <span class="material-symbols-outlined">chevron_right</span>
+								Building 4
+							</li>
+							<li class="list-group-item">
+                <span class="material-symbols-outlined">chevron_right</span>
+								Building 5
+							</li>
+							<li class="list-group-item">
+                <span class="material-symbols-outlined">chevron_right</span>
+								Building 6
+							</li>
+							<li class="list-group-item">
+                <span class="material-symbols-outlined">chevron_right</span>
+								Building 7
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="card">
+					<div class="card-header">
+						<h5 class="card-title mb-0">Recents</h5>
+					</div>
+					<div class="card-body">
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item">
+	              <span class="material-symbols-outlined">chevron_right</span>
+								Placeholder value
+							</li>
+							<li class="list-group-item">
+	              <span class="material-symbols-outlined">chevron_right</span>
+								Placeholder value
+							</li>
+							<li class="list-group-item">
+	              <span class="material-symbols-outlined">chevron_right</span>
+								Placeholder value
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div id="about-buildigns">
+				<h4>What is done in each building?</h4>
+				<p>
+					Each building has its own purpose and its own usual
+					places, here we will briefly explain in general what
+					you can find in each and every building of the
+					campus
+				</p>
+				<p>Building 1: </p>
+				<p>Building 2: </p>
+				<p>Building 3: </p>
+				<p>Building 4: </p>
+				<p>Building 5: </p>
+				<p>Building 6: </p>
+				<p>Building 7: </p>
+			</div>
+		</div>
+	</div>
 
-            <div
-                id="liveViewSection"
-                class="section-container"
-                style="padding: 0"
-            ></div>
+	<div id="liveViewSection" class="section-container" style="padding: 0"></div>
 
-            <div id="mapSection" class="section-container">
-                <h1>Map</h1>
-                <p>Here is a full view of the map</p>
-                <div class="card">
-                    <div class="card-header">Map</div>
-                    <div class="card-body" id="map_container">
-                        <img
-                            src="public/plano-leganes.jpg"
-                            alt="campus map"
-                            id="map"
-                        />
-                    </div>
-                </div>
-                <p>
-                    The campus is composed of seven main buildings named from 1
-                    to 7
-                </p>
-                <p>
-                    You can find more information about them in the Home section
-                </p>
-                <p>Lorem ipsum dolor sit amet …</p>
-            </div>
+	<div id="mapSection" class="section-container">
+		<h1>Map</h1>
+		<p>Here is a full view of the map</p>
+		<div class="card">
+			<div class="card-header">Map</div>
+			<div class="card-body" id="map_container">
+				<img src="public/plano-leganes.jpg"
+					   alt="campus map"
+					   id="map"/>
+			</div>
+		</div>
+		<p>
+			The campus is composed of seven main buildings named from 1
+			to 7
+		</p>
+		<p>
+			You can find more information about them in the Home section
+		</p>
+		<p>Lorem ipsum dolor sit amet …</p>
+	</div>
 
-            <div id="settingsSection" class="section-container">
-                <h1>Settings</h1>
-                <p>Here are your settings.</p>
-                <p>More placeholder …</p>
-                <p>Enable TTS</p>
-                <p>Routing method (movility)</p>
-            </div>
-        </main>
+	<div id="settingsSection" class="section-container">
+		<h1>Settings</h1>
+		<p>Here are your settings.</p>
+		<p>More placeholder ...</p>
+		<p>Enable TTS</p>
+		<p>Routing method (mobility)</p>
+	</div>
+</main>
 
-        <!-- Bottom navigation bar -->
-        <nav id="botMenu" class="navbar navbar-dark bg-dark bottom-nav">
-            <div class="container-fluid justify-content-around">
-                <button class="btn btn-link nav-btn" data-target="homeSection">
-                    <span class="material-symbols-outlined">home</span>
-                </button>
-                <button
-                    class="btn btn-link nav-btn"
-                    data-target="liveViewSection"
-                >
-                    <span class="material-symbols-outlined">photo_camera</span>
-                </button>
-                <button class="btn btn-link nav-btn" data-target="mapSection">
-                    <span class="material-symbols-outlined">map</span>
-                </button>
-                <button
-                    class="btn btn-link nav-btn"
-                    data-target="settingsSection"
-                >
-                    <span class="material-symbols-outlined">settings</span>
-                </button>
-            </div>
-        </nav>
+<!-- Bottom navigation bar -->
+<nav id="botMenu" class="navbar navbar-dark bg-dark bottom-nav">
+	<div class="container-fluid justify-content-around">
+		<button class="btn btn-link nav-btn" data-target="homeSection">
+			<span class="material-symbols-outlined">home</span>
+		</button>
+		<button class="btn btn-link nav-btn" data-target="liveViewSection">
+			<span class="material-symbols-outlined">photo_camera</span>
+		</button>
+		<button class="btn btn-link nav-btn" data-target="mapSection">
+			<span class="material-symbols-outlined">map</span>
+		</button>
+		<button class="btn btn-link nav-btn" data-target="settingsSection">
+			<span class="material-symbols-outlined">settings</span>
+		</button>
+	</div>
+</nav>
 
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                const navButtons = document.querySelectorAll(".nav-btn");
-                const sections =
-                    document.querySelectorAll(".section-container");
-                const topMenu = document.getElementById("topMenu");
-                const liveViewId = "liveViewSection";
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		const navButtons = document.querySelectorAll(".nav-btn");
+		const sections   = document.querySelectorAll(".section-container");
+		const topMenu    = document.getElementById("topMenu");
+		const liveViewId = "liveViewSection";
 
-                function showSection(targetId) {
-                    sections.forEach((sec) => {
-                        if (sec.id === targetId) {
-                            sec.classList.add("active");
-                        } else {
-                            sec.classList.remove("active");
-                        }
-                    });
-                    if (targetId === liveViewId) {
-                        topMenu.style.display = "block";
-                        // add padding to live view container so content isn't hidden behind top menu
-                        document
-                            .getElementById(liveViewId)
-                            .classList.add("with-top-menu");
-                        document
-                            .getElementById("botMenu")
-                            .classList.add("darkbg-lightfr");
-                        document
-                            .getElementById("botMenu")
-                            .classList.remove("lightbg-darkfr");
-                        document
-                            .querySelector("body")
-                            .classList.remove("bot-padd");
-                        document
-                            .querySelector("body")
-                            .classList.add("no-bot-padd");
-                    } else {
-                        topMenu.style.display = "none";
-                        // remove padding if previously added
-                        document
-                            .getElementById(liveViewId)
-                            .classList.remove("with-top-menu");
-                        document
-                            .getElementById("botMenu")
-                            .classList.remove("darkbg-lightfr");
-                        document
-                            .getElementById("botMenu")
-                            .classList.add("lightbg-darkfr");
-                        document
-                            .querySelector("body")
-                            .classList.remove("no-bot-padd");
-                        document
-                            .querySelector("body")
-                            .classList.add("bot-padd");
-                    }
-                }
+		function showSection(targetId) {
+			sections.forEach((sec) => {
+				if (sec.id === targetId) sec.classList.add("active");
+				else sec.classList.remove("active");
+			});
+			if (targetId === liveViewId) {
+				topMenu.style.display = "block";
+				// add padding to live view container so content isn't hidden behind top menu
+				document.getElementById(liveViewId).classList.add("with-top-menu");
+				document.getElementById("botMenu").classList.add("darkbg-lightfr");
+				document.getElementById("botMenu").classList.remove("lightbg-darkfr");
+				document.querySelector("body").classList.remove("bot-padd");
+				document.querySelector("body").classList.add("no-bot-padd");
+			} else {
+				topMenu.style.display = "none";
+				// remove padding if previously added
+				document.getElementById(liveViewId).classList.remove("with-top-menu");
+				document.getElementById("botMenu").classList.remove("darkbg-lightfr");
+				document.getElementById("botMenu").classList.add("lightbg-darkfr");
+				document.querySelector("body").classList.remove("no-bot-padd");
+				document.querySelector("body").classList.add("bot-padd");
+			}
+		}
 
-                navButtons.forEach((btn) => {
-                    btn.addEventListener("click", function () {
-                        const targ = this.getAttribute("data-target");
-                        showSection(targ);
-                    });
-                });
+		navButtons.forEach((btn) => {
+			btn.addEventListener("click", function () {
+				const targ = this.getAttribute("data-target");
+				showSection(targ);
+			});
+		});
 
-                // Initialize to Home (you may choose a different default)
-                showSection("homeSection");
-            });
-        </script>
-    </body>
+		// Initialize to Home (you may choose a different default)
+		showSection("homeSection");
+	});
+</script>
+</body>
 </html>
