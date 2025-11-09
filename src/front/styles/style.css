@@ -13,6 +13,7 @@ body {
 }
 
 /*** CLASES GLOBALES ***/
+/* Generales visuales */
 .no-bot-padd {
   padding-bottom: 0;
 }
@@ -38,18 +39,102 @@ body {
   color: var(--dark-green) !important;
 }
 
-/* Bottom nav fixed at bottom */
+.container-fluid {
+    align-content: center;
+    align-items: center;
+}
+
+/* Panel de navegación del fondo*/
 .bottom-nav {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 90%;
-  z-index: 1030; /* above content */
+  z-index: 1030;
   margin: 0 5% 20px 5%;
   border-radius: 10px;
 }
+/* Visibilidad de los contenedores de cada sección */
+.section-container {
+    display: none;
+    padding: 1rem;
+}
+.section-container.active {
+    display: block;
+}
 
-/* Top floating menu for Live View */
+/*** PANELES ***/
+
+/* Home */
+#search_bar {
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    max-width: max-content;
+    padding: 10px;
+    border: 1px solid var(--light-cyan);
+    border-radius: 10px;
+}
+#search_bar input {
+    background-color: #00000000 !important;
+    border: none;
+    color: var(--white-smoke) !important;
+}
+#search_bar input::placeholder {
+    color: var(--white-smoke) !important;
+}
+.search-container {
+    margin-bottom: 30px;
+    padding: 20px;
+}
+#home-text {
+    margin-top: 30px;
+}
+#poi {
+    height: 250px;
+    width: auto;
+    background-color: #48e5c2ff;
+}
+#recents {
+    height: 250px;
+    width: auto;
+    background-color: #48e5c2ff;
+}
+#massive-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.card {
+    margin: 10px auto;
+    border-radius: 10px;
+    width: 80%;
+    border: 1px solid var(--light-cyan);
+    background-color: #00000000 !important;
+    padding: 0 !important;
+}
+.card-header {
+    background-color: var(--light-cyan);
+    color: var(--dark-green);
+    font-weight: bold;
+}
+.list-group-item {
+    border: none;
+    display: flex;
+    padding: 10px 15px;
+    background-color: #00000000 !important;
+    color: var(--white-smoke) !important;
+    align-content: center;
+    align-items: center;
+}
+.option-title {
+    margin-top: 30px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #0d6efd;
+}
+
+
+/* Live View */
 .top-menu {
   position: fixed;
   top: 0;
@@ -58,10 +143,6 @@ body {
   margin: 20px 10% 0 10%;
   border-radius: 10px;
   z-index: 1040;
-}
-.container-fluid {
-  align-content: center;
-  align-items: center;
 }
 .top-menu-elems {
   align-content: center;
@@ -76,88 +157,20 @@ body {
 #floorId {
   margin-left: 10px;
 }
-
-/* Container spacing when top menu is visible: push content down */
 .with-top-menu {
-  padding-top: 56px; /* height of top menu */
-}
-/* Section containers hidden by default */
-.section-container {
-  display: none;
-  padding: 1rem;
-}
-.section-container.active {
-  display: block;
+  padding-top: 56px;
 }
 
-#poi {
-  align-items: left;
-  height: 250px;
-  width: auto;
-  background-color: #48e5c2ff;
-}
-#recents {
-  align-items: right;
-  height: 250px;
-  width: auto;
-  background-color: #48e5c2ff;
-}
+/* Mapa */
 #map {
-  align-content: center;
-  height: 500px;
-  width: 500px;
+    align-content: center;
+    height: 500px;
+    width: 500px;
 }
 #map_container {
-  align-items: center;
-  display: flex;
-  width: 500px;
-  align-self: center;
+    align-items: center;
+    display: flex;
+    width: 500px;
+    align-self: center;
 }
-#massive-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 20px;
-}
-#search_bar {
-  display: flex;
-  align-self: center;
-  max-width: max-content;
-}
-.card {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s;
-  margin-bottom: 20px;
-}
-.card:hover {
-  transform: translateY(-5px);
-}
-.list-group-item {
-  border: none;
-  padding: 10px 15px;
-}
-.list-group-item:hover {
-  background-color: #f8f9fa;
-}
-.card-header {
-  background-color: #0d6efd;
-  color: white;
-  font-weight: bold;
-}
-.option-title {
-  margin-top: 30px;
-  padding-bottom: 10px;
-  border-bottom: 2px solid #0d6efd;
-}
-.search-container {
-  margin-bottom: 30px;
-  padding: 20px;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-.search-preview {
-  background-color: #f8f9fa;
-  padding: 15px;
-  border-radius: 8px;
-  margin-top: 10px;
-}
+
