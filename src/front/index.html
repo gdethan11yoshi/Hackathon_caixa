@@ -141,7 +141,7 @@
 					</div>
 				</div>
 			</div>
-			<div id="about-buildigns">
+			<div id="about-buildings">
 				<h4>What is done in each building?</h4>
 				<p>
 					Each building has its own purpose and its own usual
@@ -162,26 +162,7 @@
 
 	<div id="liveViewSection" class="section-container" style="padding: 0"></div>
 
-	<div id="mapSection" class="section-container">
-		<h1>Map</h1>
-		<p>Here is a full view of the map</p>
-		<div class="card">
-			<div class="card-header">Map</div>
-			<div class="card-body" id="map_container">
-				<img src="public/plano-leganes.jpg"
-					   alt="campus map"
-					   id="map"/>
-			</div>
-		</div>
-		<p>
-			The campus is composed of seven main buildings named from 1
-			to 7
-		</p>
-		<p>
-			You can find more information about them in the Home section
-		</p>
-		<p>Lorem ipsum dolor sit amet …</p>
-	</div>
+	<div id="mapSection" class="section-container"></div>
 
 	<div id="settingsSection" class="section-container">
 		<h1>Settings</h1>
@@ -216,6 +197,7 @@
 		const sections   = document.querySelectorAll(".section-container");
 		const topMenu    = document.getElementById("topMenu");
 		const liveViewId = "liveViewSection";
+		const mapID      = "mapSection";
 
 		function showSection(targetId) {
 			sections.forEach((sec) => {
@@ -225,7 +207,13 @@
 			if (targetId === liveViewId) {
 				topMenu.style.display = "block";
 				// add padding to live view container so content isn't hidden behind top menu
-				document.getElementById(liveViewId).classList.add("with-top-menu");
+				document.getElementById("botMenu").classList.add("darkbg-lightfr");
+				document.getElementById("botMenu").classList.remove("lightbg-darkfr");
+				document.querySelector("body").classList.remove("bot-padd");
+				document.querySelector("body").classList.add("no-bot-padd");
+			}
+			else if (targetId === mapID) {
+				topMenu.style.display = "none";
 				document.getElementById("botMenu").classList.add("darkbg-lightfr");
 				document.getElementById("botMenu").classList.remove("lightbg-darkfr");
 				document.querySelector("body").classList.remove("bot-padd");
@@ -233,7 +221,6 @@
 			} else {
 				topMenu.style.display = "none";
 				// remove padding if previously added
-				document.getElementById(liveViewId).classList.remove("with-top-menu");
 				document.getElementById("botMenu").classList.remove("darkbg-lightfr");
 				document.getElementById("botMenu").classList.add("lightbg-darkfr");
 				document.querySelector("body").classList.remove("no-bot-padd");

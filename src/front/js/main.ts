@@ -3,6 +3,7 @@ import { AltitudeEstimator } from './altura';
 import { locar, renderer, scene, camera, deviceOrientationControls } from './ar';
 import { MarkerManager } from './marcadores';
 import { CAMPUS_LOCATIONS, LocationType } from './ubicaciones';
+import './map';
 
 const liveViewDOM = document.getElementById('liveViewSection');
 if (liveViewDOM) {
