@@ -1,19 +1,17 @@
-import * as LEAF from 'leaflet';
-import leganes_map from '../public/plano-leganes.jpg';
+import * as L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 
-// 920 x 869
-const imgW = 920;
-const imgH = 869;
-const imageBounds: LEAF.LatLngBoundsExpression = [
-    [0, 0],
-    [imgH, imgW],
-];
-
-const map = LEAF.map('mapSection', {
-    crs: LEAF.CRS.Simple,
-    minZoom: -1
+// Create OSM tile layer
+const osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+const osmAttrib = '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+const osm = L.tileLayer(osmUrl, {
+    maxZoom: 19,
+    attribution: osmAttrib,
 });
 
-LEAF.imageOverlay(leganes_map, imageBounds).addTo(map);
-
-map.fitBounds(imageBounds);
+export const map = L.map('mapSection', {
+    center: [40.332554, -3.765760], // UC3M Leganés Campus
+    zoom: 17,
+    layers: [osm],
+    zoomControl: false,
+});

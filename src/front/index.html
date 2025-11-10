@@ -27,26 +27,10 @@
 </head>
 
 <body>
-<!-- Top floating menu (only for Live View) -->
-<nav id="topMenu"
-     class="navbar navbar-dark bg-dark top-menu darkbg-lightfr"
-		 style="display: none">
-	<div class="container-fluid">
-		<div class="top-menu-elems">
-			<span class="material-symbols-outlined">stairs</span>
-			<div id="floorId">2</div>
-		</div>
-		<div class="top-menu-elems">
-			<div id="directionId">NNR</div>
-			<span class="material-symbols-outlined">explore</span>
-		</div>
-	</div>
-</nav>
-
 <!-- Main content sections -->
 <main class="container-fluid" style="max-width: 100%; padding: 0">
 	<div id="homeSection" class="section-container active">
-		<h1>Home</h1>
+		<h1>Inicio</h1>
 		<div class="search-container">
 			<div id="search_bar">
 				<label style="display: flex;
@@ -162,16 +146,29 @@
 		</div>
 	</div>
 
+	<!-- Menu flotante superior -->
+	<nav id="topMenu"
+	     class="navbar navbar-dark bg-dark top-menu darkbg-lightfr"
+	     style="display: none">
+		<div class="container-fluid">
+			<div class="top-menu-elems">
+				<span class="material-symbols-outlined">stairs</span>
+				<div id="floorId">2</div>
+			</div>
+			<div class="top-menu-elems">
+				<div id="directionId">NNR</div>
+				<span class="material-symbols-outlined">explore</span>
+			</div>
+		</div>
+	</nav>
+
 	<div id="liveViewSection" class="section-container" style="padding: 0"></div>
 
-	<div id="mapSection" class="section-container"></div>
+	<div id="mapSection" class="section-container" style="padding: 0"></div>
 
 	<div id="settingsSection" class="section-container">
-		<h1>Settings</h1>
-		<p>Here are your settings.</p>
-		<p>More placeholder ...</p>
-		<p>Enable TTS</p>
-		<p>Routing method (mobility)</p>
+		<h1>Ajustes</h1>
+
 	</div>
 </main>
 
@@ -192,54 +189,5 @@
 		</button>
 	</div>
 </nav>
-
-<script>
-	document.addEventListener("DOMContentLoaded", function () {
-		const navButtons = document.querySelectorAll(".nav-btn");
-		const sections   = document.querySelectorAll(".section-container");
-		const topMenu    = document.getElementById("topMenu");
-		const liveViewId = "liveViewSection";
-		const mapID      = "mapSection";
-
-		function showSection(targetId) {
-			sections.forEach((sec) => {
-				if (sec.id === targetId) sec.classList.add("active");
-				else sec.classList.remove("active");
-			});
-			if (targetId === liveViewId) {
-				topMenu.style.display = "block";
-				// add padding to live view container so content isn't hidden behind top menu
-				document.getElementById("botMenu").classList.add("darkbg-lightfr");
-				document.getElementById("botMenu").classList.remove("lightbg-darkfr");
-				document.querySelector("body").classList.remove("bot-padd");
-				document.querySelector("body").classList.add("no-bot-padd");
-			}
-			else if (targetId === mapID) {
-				topMenu.style.display = "none";
-				document.getElementById("botMenu").classList.add("darkbg-lightfr");
-				document.getElementById("botMenu").classList.remove("lightbg-darkfr");
-				document.querySelector("body").classList.remove("bot-padd");
-				document.querySelector("body").classList.add("no-bot-padd");
-			} else {
-				topMenu.style.display = "none";
-				// remove padding if previously added
-				document.getElementById("botMenu").classList.remove("darkbg-lightfr");
-				document.getElementById("botMenu").classList.add("lightbg-darkfr");
-				document.querySelector("body").classList.remove("no-bot-padd");
-				document.querySelector("body").classList.add("bot-padd");
-			}
-		}
-
-		navButtons.forEach((btn) => {
-			btn.addEventListener("click", function () {
-				const targ = this.getAttribute("data-target");
-				showSection(targ);
-			});
-		});
-
-		// Initialize to Home (you may choose a different default)
-		showSection("homeSection");
-	});
-</script>
 </body>
 </html>
