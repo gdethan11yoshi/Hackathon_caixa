@@ -5,15 +5,16 @@ import { map } from './map';
 document.addEventListener('DOMContentLoaded', () => {
     const navButtons = document.querySelectorAll<HTMLButtonElement>('.nav-btn');
     const sections = document.querySelectorAll<HTMLElement>('.section-container');
-    const topMenu = document.getElementById('topMenu') as HTMLElement;
+    const menuLiveElems = document.getElementsByClassName('menusLiveView');
+    const menuMapElems = document.getElementsByClassName('liveView');
     const botMenu = document.getElementById('botMenu') as HTMLElement;
     const body = document.body;
 
     const liveViewId = 'liveViewSection';
     const mapID = 'mapSection';
 
-    if (!topMenu || !botMenu) {
-        console.error('Missing required DOM elements: topMenu or botMenu');
+    if (!menuLiveElems || !botMenu || !menuMapElems) {
+        console.error('Missing required DOM elements');
         return;
     }
 
@@ -26,15 +27,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if (targetId === liveViewId) {
-            // Live view mode
-            topMenu.style.display = 'block';
+            for (let elem in menuLiveElems) elem.style.display = 'block';
+            menuLive.
+            menuMap.style.display = 'none';
             botMenu.classList.add('darkbg-lightfr');
             botMenu.classList.remove('lightbg-darkfr');
             body.classList.remove('bot-padd');
             body.classList.add('no-bot-padd');
         } else if (targetId === mapID) {
             // Map mode
-            topMenu.style.display = 'none';
+            menuLive.style.display = 'none';
+            menuMap.style.display = 'block';
             botMenu.classList.add('darkbg-lightfr');
             botMenu.classList.remove('lightbg-darkfr');
             body.classList.remove('bot-padd');
@@ -43,7 +46,8 @@ document.addEventListener('DOMContentLoaded', () => {
             (map as Map).invalidateSize();
         } else {
             // Other sections
-            topMenu.style.display = 'none';
+            menuLive.style.display = 'none';
+            menuMap.style.display = 'none';
             botMenu.classList.remove('darkbg-lightfr');
             botMenu.classList.add('lightbg-darkfr');
             body.classList.remove('no-bot-padd');
