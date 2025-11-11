@@ -16,8 +16,7 @@
 
 	<script type="module" src="./js/main.ts"></script>
 	<link rel="stylesheet" href="./styles/style.css"/>
-
-    <link rel="icon" type="image/x-icon" href="./public/icon.png">
+  <link rel="icon" type="image/x-icon" href="./public/icon.png">
 
 	<!-- BOOTSTRAP -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous"/>
@@ -150,23 +149,24 @@
 
 	<div id="liveViewSection" class="section-container" style="padding: 0"></div>
 	<!-- Menus Live View -->
-		<nav id="topMenuLive"
-		     class="overMenu liveView navbar darkbg-lightfr">
-			<div class="container-fluid">
-				<div class="top-menu-elems">
-					<span class="material-symbols-outlined">stairs</span>
-					<div id="floorId">2</div>
-				</div>
-				<div class="top-menu-elems">
-					<div id="directionId">NNR</div>
-					<span class="material-symbols-outlined">explore</span>
-				</div>
+	<nav class="overMenu menusLiveView darkbg-lightfr" id="topMenuLive">
+		<div class="container-fluid">
+			<div class="top-menu-elems" style="margin: 10px auto 10px 5px">
+				<span class="material-symbols-outlined">stairs</span>
+				<div id="floorId">2</div>
 			</div>
-		</nav>
+			<div class="top-menu-elems" style="margin: 10px 5px 10px auto">
+				<div id="directionId">NNR</div>
+				<span class="material-symbols-outlined">explore</span>
+			</div>
+		</div>
+	</nav>
 
 	<div id="mapSection" class="section-container" style="padding: 0"></div>
 	<!-- Menus Map section -->
-		<nav id="alignMap">uwu</nav>
+	<button class="overMenu navbar menusMapView darkbg-lightfr" id="alignMap">
+		<span class="material-symbols-outlined">center_focus_strong</span>
+	</button>
 
 	<div id="settingsSection" class="section-container">
 		<h1>Ajustes</h1>
@@ -180,7 +180,7 @@
 </main>
 
 <!-- Bottom navigation bar -->
-<nav id="botMenu" class="navbar navbar-dark bg-dark bottom-nav">
+<nav id="botMenu" class="navbar bottom-nav">
 	<div class="container-fluid justify-content-around">
 		<button class="btn btn-link nav-btn" data-target="homeSection">
 			<span class="material-symbols-outlined">home</span>
@@ -196,5 +196,6 @@
 		</button>
 	</div>
 </nav>
+
 </body>
 </html>
