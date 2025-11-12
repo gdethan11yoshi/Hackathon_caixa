@@ -20,7 +20,7 @@
 	<!-- Google Icons -->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"/>
 	<!-- CSS y JS local -->
-	<script type="module" src="./js/main.ts"></script>
+	<script type="module" src="./js/main.ts" defer></script>
 	<link rel="stylesheet" href="./styles/style.css"/>
 	<link rel="icon" type="image/x-icon" href="./public/icon.png">
 </head>
@@ -225,13 +225,13 @@
 	</nav>
 	<nav class="overMenu menusLiveView darkbg-lightfr" id="bdSelectorLive">
 		<div class="container-fluid">
-			<button class="btn">
+			<button class="btn" id="buildingsTgl">
 				<span class="material-symbols-outlined">brick</span>
 			</button>
-			<button class="btn">
+			<button class="btn" id="poisTgl">
 				<span class="material-symbols-outlined">flag_circle</span>
 			</button>
-			<button class="btn">
+			<button class="btn" id="eventTgl">
 				<span class="material-symbols-outlined">event</span>
 			</button>
 		</div>

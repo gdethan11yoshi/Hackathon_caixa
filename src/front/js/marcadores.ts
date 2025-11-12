@@ -26,9 +26,17 @@ export class MarkerManager {
     }
 
     public async addLocation(location: Location): Promise<void> {
+        // Crear el marcador (el cono)
         const mesh = this.createDefaultMarker(location);
+
+        // Crear la etiqueta de texto
         const label = this.createTextLabel(location.name, location.icon);
 
+        // Posicionar la etiqueta justo encima de la base del cono
+        const coneHeight = location.scale || 10;
+        label.position.y = coneHeight + 5; // Altura del cono + 5 unidades de padding
+
+        // Agruparlos y añadirlos a la escena
         const group = new THREE.Group();
         group.add(mesh);
         group.add(label);
@@ -51,37 +59,33 @@ export class MarkerManager {
         this.updateMarkerVisibility(location.id);
     }
 
+    /**
+     * Crea el marcador visual simple: un cono apuntando hacia abajo.
+     */
     private createDefaultMarker(location: Location): THREE.Object3D {
-        const group = new THREE.Group();
         const color = location.color || 0x0066cc;
-        const scale = location.scale || 10;
+        const height = location.scale || 10; // Usamos 'scale' como la altura
+        const radius = height * 0.4; // Radio un poco menos de la mitad de la altura
 
-        const cylinderGeom = new THREE.CylinderGeometry(
-            scale * 0.3,
-            scale * 0.3,
-            scale * 2,
-            8
-        );
-        const cylinderMat = new THREE.MeshBasicMaterial({
+        // Geometría de Cono (radio, altura, segmentos)
+        const coneGeom = new THREE.ConeGeometry(radius, height, 8);
+        const coneMat = new THREE.MeshBasicMaterial({
             color,
             transparent: true,
             opacity: 0.8
         });
-        const cylinder = new THREE.Mesh(cylinderGeom, cylinderMat);
-        cylinder.position.y = scale;
-        group.add(cylinder);
-
-        const coneGeom = new THREE.ConeGeometry(scale * 0.5, scale, 8);
-        const coneMat = new THREE.MeshBasicMaterial({ color });
         const cone = new THREE.Mesh(coneGeom, coneMat);
-        cone.position.y = scale * 2 + scale * 0.5;
-        group.add(cone);
 
-        this.addPulseAnimation(group);
+        // Posicionar el cono para que su punta (vértice) esté en y=0
+        // Por defecto, el centro del cono está en y=0, así que lo subimos la mitad de su altura.
+        cone.position.y = height * 0.5;
 
-        return group;
+        return cone;
     }
 
+    /**
+     * Crea la etiqueta de texto.
+     */
     private createTextLabel(text: string, icon?: string): THREE.Sprite {
         const canvas = document.createElement('canvas');
         const context = canvas.getContext('2d');
@@ -93,11 +97,13 @@ export class MarkerManager {
         canvas.width = 512;
         canvas.height = 128;
 
+        // Fondo semi-transparente
         context.fillStyle = 'rgba(0, 0, 0, 0.7)';
         context.beginPath();
         context.roundRect(0, 0, canvas.width, canvas.height, 20);
         context.fill();
 
+        // Texto
         context.fillStyle = '#ffffff';
         context.font = 'bold 48px Arial';
         context.textAlign = 'center';
@@ -113,26 +119,10 @@ export class MarkerManager {
         });
         const sprite = new THREE.Sprite(material);
         sprite.scale.set(20, 5, 1);
-        sprite.position.y = 30;
+
+        // La posición Y se establece en addLocation()
 
         return sprite;
-    }
-
-    private addPulseAnimation(object: THREE.Object3D): void {
-        const originalScale = object.scale.clone();
-        let time = Math.random() * Math.PI * 2;
-
-        const animate = () => {
-            time += 0.02;
-            const pulse = 1 + Math.sin(time) * 0.1;
-            object.scale.set(
-                originalScale.x * pulse,
-                originalScale.y * pulse,
-                originalScale.z * pulse
-            );
-            requestAnimationFrame(animate);
-        };
-        animate();
     }
 
     public toggleLocationType(type: LocationType, visible: boolean): void {

@@ -1,4 +1,6 @@
 import './script';
+import { estimator } from './script';
+import { startCamera, stopCamera, locar, deviceOrientationControls } from './ar';
 import { mapView } from './map';
 
 const navButtons = document.querySelectorAll<HTMLButtonElement>('.nav-btn');
@@ -46,6 +48,12 @@ function showSection(targetId: string | null): void {
         // Quitar el padding para contenedores de pantalla completa
         body.classList.remove('bot-padd');
         body.classList.add('no-bot-padd');
+
+        // Iniciar todos los elementos necesarios
+        startCamera();
+        locar.startGps();
+        estimator.start();
+        deviceOrientationControls.init();
     } else if (targetId === mapID) {
         for (const elem of menuLiveElems) {
             if (elem && elem.id) {
@@ -66,6 +74,12 @@ function showSection(targetId: string | null): void {
 
         // Invalidar el mapa precargado (resetearlo)
         mapView.invalidateSize();
+
+        // Desconectar camara para ahorra energía y mejorar rendimiento
+        stopCamera();
+        locar.stopGps();
+        estimator.stop();
+        deviceOrientationControls.disconnect();
     } else {
         for (const elem of menuLiveElems) {
             if (elem && elem.id) {
@@ -83,6 +97,11 @@ function showSection(targetId: string | null): void {
         botMenu.classList.add('lightbg-darkfr');
         body.classList.remove('no-bot-padd');
         body.classList.add('bot-padd');
+
+        stopCamera();
+        locar.stopGps();
+        estimator.stop();
+        deviceOrientationControls.disconnect();
     }
 }
 

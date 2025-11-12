@@ -21,16 +21,45 @@ window.addEventListener('resize', () => {
     camera.updateProjectionMatrix();
 });
 
-const cam = new LocAR.Webcam({ video: { facingMode: 'environment' } });
+// --- Cámara ---
 
-cam.on('webcamstarted', (ev: any) => {
-    scene.background = ev.texture;
-});
+// 'cam' solo existirá cuando el toggle esté "ON"
+export let cam: LocAR.Webcam | null = null;
+const constraints = { video: { facingMode: 'environment' } };
 
-cam.on('webcamerror', (error: any) => {
-    alert(`Error de camara: ${error.message}`);
-});
+export function startCamera() {
+    // Si la cámara ya existe, no hacer nada
+    if (cam) return;
 
+    // Crear la cámara
+    cam = new LocAR.Webcam(constraints);
+
+    // Añadir los listeners al nuevo objeto 'cam'
+    cam.on('webcamstarted', (ev: any) => {
+        scene.background = ev.texture;
+    });
+
+    cam.on('webcamerror', (error: any) => {
+        alert(`Error de camara: ${error.message}`);
+        stopCamera(); // Si hay error, la destruimos
+    });
+}
+
+export function stopCamera() {
+    // Si la cámara existe, destruirla
+    if (cam) {
+        cam.dispose();
+        cam = null;
+        console.log('Camara parada');
+    }
+
+    // Restaurar el fondo oscuro
+    scene.background = new THREE.Color(0x48e5c2);
+}
+
+
+// --- Orientación ---
+// (Esta parte no cambia)
 export const deviceOrientationControls = new LocAR.DeviceOrientationControls(camera);
 
 deviceOrientationControls.on('deviceorientationgranted', (ev: any) => {
@@ -40,8 +69,6 @@ deviceOrientationControls.on('deviceorientationgranted', (ev: any) => {
 deviceOrientationControls.on('deviceorientationerror', (error: any) => {
     alert(`Error de orientación: ${error.message}`);
 });
-
-deviceOrientationControls.init();
 
 locar.on('gpserror', (error: any) => {
     alert(`Error de GPS: ${error.code}`);

@@ -5,7 +5,9 @@ export interface FloorEstimate {
 }
 
 export class AltitudeEstimator {
+    // Altura estimada de un piso (en metros). Ajustar si es necesario.
     private readonly floorHeight = 3.0;
+    // Número de muestras para suavizar la lectura
     private readonly smoothSize = 5;
     private altitudeBuffer: number[] = [];
     private baseAltitude: number | null = null;
@@ -23,27 +25,36 @@ export class AltitudeEstimator {
 
     public start(): void {
         if (!('geolocation' in navigator)) {
-            console.warn('Geolocation API not supported in this browser.');
+            console.warn('La API de Geolocalización no está soportada.');
             return;
         }
 
         this.watchId = navigator.geolocation.watchPosition(
             (pos) => {
                 const { altitude, altitudeAccuracy } = pos.coords;
+
+                // Si el dispositivo no da altitud, no podemos hacer nada
                 if (altitude == null) return;
 
+                // Establecer la altitud base en la primera lectura válida
                 if (this.baseAltitude == null) {
                     this.baseAltitude = altitude;
                 }
 
+                // Añadir al buffer de suavizado
                 this.altitudeBuffer.push(altitude);
                 if (this.altitudeBuffer.length > this.smoothSize) {
-                    this.altitudeBuffer.shift();
+                    this.altitudeBuffer.shift(); // Eliminar la más antigua
                 }
 
+                // Calcular la media del buffer
                 const smoothedAltitude =
                     this.altitudeBuffer.reduce((a, b) => a + b, 0) / this.altitudeBuffer.length;
+
+                // Altitud relativa a la primera lectura
                 const relativeAltitude = smoothedAltitude - (this.baseAltitude ?? 0);
+
+                // Estimar el piso
                 const floor = Math.round(relativeAltitude / this.floorHeight);
 
                 this.latestEstimate = {
@@ -52,12 +63,17 @@ export class AltitudeEstimator {
                     accuracy: altitudeAccuracy ?? null,
                 };
 
+                // Enviar actualización
                 if (this.onUpdate) {
                     this.onUpdate(this.latestEstimate);
                 }
             },
-            (err) => console.error('Geolocation error:', err.message),
-            { enableHighAccuracy: true, maximumAge: 2000, timeout: 10000 }
+            (err) => console.error('Error de Geolocalización:', err.message),
+            {
+                enableHighAccuracy: true, // Pedir la máxima precisión
+                maximumAge: 2000,
+                timeout: 10000
+            }
         );
     }
 
