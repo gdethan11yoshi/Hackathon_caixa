@@ -28,7 +28,7 @@ cam.on('webcamstarted', (ev: any) => {
 });
 
 cam.on('webcamerror', (error: any) => {
-    alert(`Camera error: ${error.message}`);
+    alert(`Error de camara: ${error.message}`);
 });
 
 export const deviceOrientationControls = new LocAR.DeviceOrientationControls(camera);
@@ -38,11 +38,11 @@ deviceOrientationControls.on('deviceorientationgranted', (ev: any) => {
 });
 
 deviceOrientationControls.on('deviceorientationerror', (error: any) => {
-    alert(`Orientation error: ${error.message}`);
+    alert(`Error de orientación: ${error.message}`);
 });
 
 deviceOrientationControls.init();
 
 locar.on('gpserror', (error: any) => {
-    alert(`GPS error: ${error.code}`);
+    alert(`Error de GPS: ${error.code}`);
 });

@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { AltitudeEstimator } from './altura';
+//import { AltitudeEstimator } from './altura';
 import { locar, renderer, scene, camera, deviceOrientationControls } from './ar';
 import { MarkerManager } from './marcadores';
 import { CAMPUS_LOCATIONS, LocationType } from './ubicaciones';
@@ -12,12 +12,13 @@ if (liveViewDOM) {
 }
 
 const alturaHeader = document.getElementById('header-altura');
-const btnCalibrate = document.getElementById('btn-calibrate');
-const btnStop = document.getElementById('btn-stop');
+const directionHeader = document.getElementById('header-direction');
+
 const btnDirections = document.getElementById('btn-directions') as HTMLInputElement;
 const btnBuildings = document.getElementById('btn-buildings') as HTMLInputElement;
 const btnCafeterias = document.getElementById('btn-cafeterias') as HTMLInputElement;
 
+/*
 const estimator = new AltitudeEstimator(({ altitude, floor, accuracy }) => {
     if (alturaHeader) {
         const altText = altitude !== null ? altitude.toFixed(1) : '---';
@@ -25,28 +26,7 @@ const estimator = new AltitudeEstimator(({ altitude, floor, accuracy }) => {
         const accText = accuracy !== null ? accuracy.toFixed(1) : '---';
         alturaHeader.textContent = `Alt: ${altText}m | Floor: ${floorText} | Accuracy: ${accText}m`;
     }
-});
-
-estimator.start();
-
-if (btnCalibrate) {
-    btnCalibrate.addEventListener('click', () => {
-        estimator.stop();
-        setTimeout(() => {
-            estimator.start();
-            console.log('Altitude calibrated');
-        }, 100);
-    });
-}
-
-if (btnStop) {
-    btnStop.addEventListener('click', () => {
-        estimator.stop();
-        if (alturaHeader) {
-            alturaHeader.textContent = 'Altitude tracking stopped';
-        }
-    });
-}
+});*/
 
 const markerManager = new MarkerManager(locar, scene);
 
@@ -115,8 +95,41 @@ const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
 directionalLight.position.set(10, 10, 10);
 scene.add(directionalLight);
 
+function getCardinalDirection(angle: number): string {
+    const directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
+    // Normalize angle to 0-360, then find the correct slice
+    const normalizedAngle = (angle + 360) % 360;
+    // Each slice is 45 degrees. Add 22.5 to center the slices.
+    const index = Math.floor((normalizedAngle + 22.5) / 45) % 8;
+    return directions[index];
+}
+
+const cameraDirection = new THREE.Vector3();
+
 renderer.setAnimationLoop(() => {
     deviceOrientationControls.update();
+
+    if (directionHeader) {
+        // Get the normalized direction vector the camera is looking at
+        camera.getWorldDirection(cameraDirection);
+
+        // Calculate the angle in the horizontal (XZ) plane
+        // atan2(x, z) gives the angle in radians from the +Z axis
+        const angleRad = Math.atan2(cameraDirection.x, cameraDirection.z);
+
+        // Convert radians to degrees
+        const angleDeg = THREE.MathUtils.radToDeg(angleRad);
+
+        // Get the cardinal direction (e.g., "N", "SW")
+        const cardinal = getCardinalDirection(angleDeg);
+
+        // Normalize angle to 0-360 for display
+        const displayAngle = ((angleDeg + 360) % 360).toFixed(0);
+
+        // Update the header text
+        directionHeader.textContent = `${cardinal} (${displayAngle}°)`;
+    }
+
     renderer.render(scene, camera);
 });
 
