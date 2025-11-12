@@ -199,6 +199,24 @@ b, strong {
 #floorId {
     margin-left: 10px;
 }
+#bdSelectorLive {
+    right: 0 !important;
+    top: auto !important;
+    bottom: 0 !important;
+    margin: auto 5% 50% auto;
+    border-radius: 10px;
+    align-content: center;
+    align-items: center;
+    left: auto !important;
+}
+#bdSelectorLive > .container-fluid {
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 10px 2px;
+}
+#bdSelectorLive > .container-fluid span {
+    padding: 10px 1px;
+}
 
 /* Mapa */
 #mapSection {
