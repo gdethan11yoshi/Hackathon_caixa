@@ -5,11 +5,7 @@ import { MarkerManager } from './marcadores';
 import { CAMPUS_LOCATIONS, LocationType } from './ubicaciones';
 
 const liveViewDOM = document.getElementById('liveViewSection');
-if (liveViewDOM) {
-    liveViewDOM.appendChild(renderer.domElement);
-} else {
-    console.error('No Live View container found');
-}
+if (liveViewDOM) liveViewDOM.appendChild(renderer.domElement);
 
 const alturaHeader = document.getElementById('header-altura');
 const directionHeader = document.getElementById('header-direction');
@@ -65,7 +61,6 @@ function setupToggleControls(): void {
         btnDirections.addEventListener('change', (e) => {
             const target = e.target as HTMLInputElement;
             markerManager.toggleLocationType(LocationType.MAIN, target.checked);
-            console.log(`Main buildings: ${target.checked ? 'visible' : 'hidden'}`);
         });
     }
 
@@ -73,7 +68,6 @@ function setupToggleControls(): void {
         btnBuildings.addEventListener('change', (e) => {
             const target = e.target as HTMLInputElement;
             markerManager.toggleLocationType(LocationType.POI, target.checked);
-            console.log(`POI: ${target.checked ? 'visible' : 'hidden'}`);
         });
     }
 
@@ -81,25 +75,17 @@ function setupToggleControls(): void {
         btnCafeterias.addEventListener('change', (e) => {
             const target = e.target as HTMLInputElement;
             markerManager.toggleLocationType(LocationType.EVENTS, target.checked);
-            console.log(`Events: ${target.checked ? 'visible' : 'hidden'}`);
         });
     }
 }
 
 setupToggleControls();
 
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
-scene.add(ambientLight);
-
-const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
-directionalLight.position.set(10, 10, 10);
-scene.add(directionalLight);
-
 function getCardinalDirection(angle: number): string {
-    const directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
-    // Normalize angle to 0-360, then find the correct slice
+    const directions = ['N', 'NE', 'E', 'SE', 'S', 'SO', 'O', 'NO'];
+    // Normalizar ángulo a 0-360
     const normalizedAngle = (angle + 360) % 360;
-    // Each slice is 45 degrees. Add 22.5 to center the slices.
+    // Cada cacho es de 45º, además le añadimos la mitad
     const index = Math.floor((normalizedAngle + 22.5) / 45) % 8;
     return directions[index];
 }
@@ -110,29 +96,24 @@ renderer.setAnimationLoop(() => {
     deviceOrientationControls.update();
 
     if (directionHeader) {
-        // Get the normalized direction vector the camera is looking at
+        // Dirección normalizada a la que se setá mirando
         camera.getWorldDirection(cameraDirection);
 
-        // Calculate the angle in the horizontal (XZ) plane
-        // atan2(x, z) gives the angle in radians from the +Z axis
+        // Calcular el ángulo de visión del dispositivo
         const angleRad = Math.atan2(cameraDirection.x, cameraDirection.z);
 
-        // Convert radians to degrees
+        // Convertir a radianes
         const angleDeg = THREE.MathUtils.radToDeg(angleRad);
 
-        // Get the cardinal direction (e.g., "N", "SW")
+        // Sacar las coordenadas cardinales dado el ángulo
         const cardinal = getCardinalDirection(angleDeg);
 
-        // Normalize angle to 0-360 for display
+        // Normalizar a 360 para mostrar en el dispositivo
         const displayAngle = ((angleDeg + 360) % 360).toFixed(0);
 
-        // Update the header text
+        // Actualizar cabecera de la interfaz
         directionHeader.textContent = `${cardinal} (${displayAngle}°)`;
     }
 
     renderer.render(scene, camera);
 });
-
-console.log('CampusNav AR initialized');
-console.log(`Loaded ${CAMPUS_LOCATIONS.length} locations`);
-console.log('Waiting for GPS lock...');
