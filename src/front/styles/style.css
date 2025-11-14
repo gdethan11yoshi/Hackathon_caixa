@@ -44,6 +44,10 @@ body, root{
     align-items: center;
 }
 
+.form-switch .form-check-input:checked {
+    background-color: var(--iconos);
+}
+
 a {
     text-decoration: none;
     color: var(--texto-primario) !important;
@@ -244,3 +248,11 @@ b, strong {
     align-items: center;
     align-content: center;
 }
+
+/* Ajustes */
+.settings-container {
+    display: flex;
+    flex-direction: column;
+    margin: 30px 0;
+}
+

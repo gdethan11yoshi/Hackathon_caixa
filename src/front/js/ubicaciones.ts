@@ -50,7 +50,7 @@ export const CAMPUS_LOCATIONS: Location[] = [
         latitude: 40.332836,
         longitude: -3.764695,
         color: 0xff9900,
-        icon: 'CAFE',
+        icon: 'BOOK',
         scale: 10
     },
     {
@@ -61,7 +61,7 @@ export const CAMPUS_LOCATIONS: Location[] = [
         latitude: 40.332121,
         longitude: -3.767444,
         color: 0xff9900,
-        icon: 'LAB',
+        icon: 'CUP',
         scale: 10
     },
     {
