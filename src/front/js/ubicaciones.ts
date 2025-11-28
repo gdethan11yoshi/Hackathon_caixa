@@ -27,8 +27,8 @@ export const CAMPUS_LOCATIONS: Location[] = [
         name: 'Edificio Sabatini',
         description: 'Main administrative building',
         type: LocationType.MAIN,
-        latitude: 40.333231,
-        longitude: -3.765953,
+        latitude: 40.332202,
+        longitude: -3.766969,
         color: 0x0066cc,
         scale: 15
     },
@@ -37,8 +37,8 @@ export const CAMPUS_LOCATIONS: Location[] = [
         name: 'Biblioteca',
         description: 'Central library',
         type: LocationType.MAIN,
-        latitude: 40.332213,
-        longitude: -3.766940,
+        latitude: 40.331863,
+        longitude: -3.765243,
         color: 0x0066cc,
         scale: 15
     },
@@ -58,8 +58,8 @@ export const CAMPUS_LOCATIONS: Location[] = [
         name: 'Cafetería Sabatini',
         description: 'Second cafeteria building',
         type: LocationType.POI,
-        latitude: 40.332121,
-        longitude: -3.767444,
+        latitude: 40.332269,
+        longitude: -3.767407,
         color: 0xff9900,
         icon: 'CUP',
         scale: 10
